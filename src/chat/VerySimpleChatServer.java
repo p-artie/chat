@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 public class VerySimpleChatServer {
 	
+	@SuppressWarnings("rawtypes")
 	ArrayList clientOutputStreams;
 	
 	public class ClientHandler implements Runnable {
@@ -42,11 +43,13 @@ public class VerySimpleChatServer {
 
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void go() {
 		clientOutputStreams = new ArrayList();
 		
 		try {
-			ServerSocket serverSock = new ServerSocket(5000);
+			@SuppressWarnings("resource")
+			ServerSocket serverSock = new ServerSocket(5001);
 			
 			while(true) {
 				Socket clientSocket = serverSock.accept();
@@ -63,6 +66,7 @@ public class VerySimpleChatServer {
 	}
 	
 	public void tellEveryone(String message) {
+		@SuppressWarnings("rawtypes")
 		Iterator it = clientOutputStreams.iterator();
 		while(it.hasNext()) {
 			try {
